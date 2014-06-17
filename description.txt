@@ -1,0 +1,4 @@
+Description of the text classification problem.
+
+We want to classify song texts to the following set of genres:
+Blues, Metal, Rap, opera(English ones),jazz, soul, folk, R&B, gospel, country
