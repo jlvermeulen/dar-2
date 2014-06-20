@@ -18,7 +18,7 @@ buildCorpora <- function() {
 }
 
 getLabels <- function() {
-	as.factor(rep(genres, each=genreSize))
+	as.factor(rep(genres, each = genreSize))
 }
 
 preprocess <- function(lyrics) {
@@ -79,7 +79,8 @@ doStuff <- function() {
 	lyrics <- preprocess(buildCorpora())
 	samples <- getSamples()
 	nb <- trainNaiveBayes(lyrics, samples)
-	test <- testNaiveBayes(lyrics, global.nb, samples)
+	test <- testNaiveBayes(lyrics, nb, samples)
+	test
 }
 
 naivebayes.result <- doStuff()
