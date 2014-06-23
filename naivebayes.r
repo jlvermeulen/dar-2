@@ -28,12 +28,15 @@ preprocess <- function(lyrics) {
     }
 	lyrics <- tm_map(lyrics, removeWords, stopwords("english"))
 	lyrics <- tm_map(lyrics, removePunctuation)
+	lyrics <- tm_map(lyrics, removeNumbers)
+	#lyrics <- tm_map(lyrics, stemDocument)
 	lyrics
 }
 
 trainNaiveBayes <- function(lyrics, samples) {
 	dtm <- DocumentTermMatrix(lyrics[samples])
 	dtm <- removeSparseTerms(dtm, 0.9)
+	dtm <- weightTfIdf(dtm)
 	dtm
 }
 
@@ -42,13 +45,16 @@ testNaiveBayes <- function(lyrics, train.dtm, samples) {
 	dict <- dimnames(train.dtm)[[2]]
 
 	test.dtm <- DocumentTermMatrix(lyrics[-samples], list(dictionary = dict))
+	test.dtm <- weightTfIdf(test.dtm)
 
-	train.bin <- toBin(train.dtm, dict)
-	test.bin <- toBin(test.dtm, dict)
+	#train.bin <- toBin(train.dtm, dict)
+	#test.bin <- toBin(test.dtm, dict)
+	train.data.frame <- as.data.frame(as.matrix(train.dtm))
+	test.data.frame <- as.data.frame(as.matrix(test.dtm))
 
 	library(e1071)
-	nb <- naiveBayes(train.bin, labels[samples], laplace = 1)
-	prediction <- predict(nb, test.bin)
+	nb <- naiveBayes(train.data.frame, labels[samples], laplace = 1)
+	prediction <- predict(nb, test.data.frame)
 	table(prediction, labels[-samples])
 }
 
@@ -76,10 +82,12 @@ reload <- function() {
 }
 
 doStuff <- function() {
+	options(warn = -1)
 	lyrics <- preprocess(buildCorpora())
 	samples <- getSamples()
 	nb <- trainNaiveBayes(lyrics, samples)
 	test <- testNaiveBayes(lyrics, nb, samples)
+	options(warn = 0)
 	test
 }
 
