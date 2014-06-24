@@ -1,7 +1,7 @@
 
 for p in 0{1..9} {10..50};
 do
-	sort Blues_"$p".txt > "$p".sorted
+	sort R\&B_"$p".txt > "$p".sorted
 done
 echo "created files" 
 for i in 0{1..9} {10..50};
