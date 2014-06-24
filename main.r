@@ -1,7 +1,7 @@
 library(tm)
 
-genreSize <- 20
-trainSize <- 15
+genreSize <- 50
+trainSize <- 25
 genres <- c("Blues", "Country", "Folk", "Gospel", "Metal", "R&B", "Rap", "Soul")
 
 buildCorpora <- function() {
@@ -77,7 +77,7 @@ testNaiveBayes <- function() {
 	result
 }
 
-testKNN <- function(k = 6) {
+testKNN <- function(k = 10) {
 	source("knn.r")
 	options(warn = -1)
 	data <- buildData()
