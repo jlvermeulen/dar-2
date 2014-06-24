@@ -1,94 +1,17 @@
-library(tm)
-
-genreSize <- 20
-trainSize <- 10
-genres <- c("Blues", "Country", "Folk", "Gospel", "Metal", "R&B", "Rap", "Soul")
-
-buildCorpora <- function() {
-	lyrics.blues	<- Corpus(DirSource("./Training Data/Blues"))
-	lyrics.country	<- Corpus(DirSource("./Training Data/Country"))
-	lyrics.folk		<- Corpus(DirSource("./Training Data/Folk"))
-	lyrics.gospel	<- Corpus(DirSource("./Training Data/Gospel"))
-	lyrics.metal	<- Corpus(DirSource("./Training Data/Metal"))
-	lyrics.rnb		<- Corpus(DirSource("./Training Data/R&B"))
-	lyrics.rap		<- Corpus(DirSource("./Training Data/Rap"))
-	lyrics.soul		<- Corpus(DirSource("./Training Data/Soul"))
-	lyrics 			<- c(lyrics.blues, lyrics.country, lyrics.folk, lyrics.gospel, lyrics.metal, lyrics.rnb, lyrics.rap, lyrics.soul)
-	lyrics
-}
-
-getLabels <- function() {
-	as.factor(rep(genres, each = genreSize))
-}
-
-preprocess <- function(lyrics) {
-	lyrics <- tm_map(lyrics, stripWhitespace)
-	for(i in 1:length(lyrics)) {
-      lyrics[[i]]$content <- tolower(lyrics[[i]]$content)
-    }
-	lyrics <- tm_map(lyrics, removeWords, stopwords("english"))
-	lyrics <- tm_map(lyrics, removePunctuation)
-	lyrics <- tm_map(lyrics, removeNumbers)
-	#lyrics <- tm_map(lyrics, stemDocument)
-	lyrics
-}
-
-trainNaiveBayes <- function(lyrics, samples) {
-	dtm <- DocumentTermMatrix(lyrics[samples])
-	dtm <- removeSparseTerms(dtm, 0.9)
-	dtm <- weightTfIdf(dtm)
-	dtm
-}
-
-testNaiveBayes <- function(lyrics, train.dtm, samples) {
-	labels <- getLabels()
-	dict <- dimnames(train.dtm)[[2]]
-
-	test.dtm <- DocumentTermMatrix(lyrics[-samples], list(dictionary = dict))
-	test.dtm <- weightTfIdf(test.dtm)
-
-	#train.bin <- toBin(train.dtm, dict)
-	#test.bin <- toBin(test.dtm, dict)
-	train.data.frame <- as.data.frame(as.matrix(train.dtm))
-	test.data.frame <- as.data.frame(as.matrix(test.dtm))
-
+doNaiveBayes <- function(test.dtm, train.dtm, samples, labels) {
 	library(e1071)
-	nb <- naiveBayes(train.data.frame, labels[samples], laplace = 1)
-	prediction <- predict(nb, test.data.frame)
+	train.bin <- toBin(train.dtm)
+	test.bin <- toBin(test.dtm)
+
+	nb <- naiveBayes(train.bin, labels[samples], laplace = 1)
+	prediction <- predict(nb, test.bin)
 	table(prediction, labels[-samples])
 }
 
-toBin <- function(dtm, dict) {
+toBin <- function(dtm) {
 	bin <- as.data.frame(as.matrix(dtm) > 0)
-	for (i in dict) {
+	for (i in 1:dim(bin)[2]) {
 		bin[,i] = as.factor(bin[,i])
 	}
 	bin
 }
-
-getSamples <- function() {
-	offset <- 1
-	samples <- c()
-	for (i in genres) {
-		samples <- append(samples, sample(offset:(offset + genreSize - 1), trainSize))
-		offset <- offset + genreSize
-	}
-	samples
-}
-
-reload <- function() {
-	rm(list=ls())
-	source("naivebayes.r")
-}
-
-doStuff <- function() {
-	options(warn = -1)
-	lyrics <- preprocess(buildCorpora())
-	samples <- getSamples()
-	nb <- trainNaiveBayes(lyrics, samples)
-	test <- testNaiveBayes(lyrics, nb, samples)
-	options(warn = 0)
-	test
-}
-
-naivebayes.result <- doStuff()
