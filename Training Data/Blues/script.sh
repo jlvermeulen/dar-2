@@ -22,4 +22,9 @@ do
 	done
 	echo done with $i
 done
-read -p "Press [Enter] key to start backup..."
+echo cleaning up
+for p in 0{1..9} {10..50};
+do
+	rm "$p".sorted
+done
+read -p "done"
