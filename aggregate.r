@@ -3,5 +3,11 @@ aggregate <- function(func, iterations = 10) {
 	for (i in 1:iterations) {
 		result <- result + func()
 	}
-	(result * 100 / iterations) / (genreSize - trainSize)
+	result <- (result * 100 / iterations) / (genreSize - trainSize)
+	avg <- 0
+	for (i in 1:length(genres)) {
+		avg <- avg + result[i, i]
+	}
+	avg <- avg / length(genres)
+	list(average = avg, table = result)
 }
