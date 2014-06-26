@@ -19,7 +19,14 @@
 We hebben het volgende classificatieprobleem onderzocht: het indelen van songteksten in de genres Blues, Country, Folk, Gospel, Metal, R\&B, Rap en Soul.  Om dat te kunnen doen hebben we een corpus verzameld van 50 songteksten per genre (in totaal 400). Deze songteksten hebben we op internet gezocht. Ter inspiratie voor de keuze van nummer hebben we indien nodig gebruik gemaakt van hitlijsten en verzamel-CD's. We hebben ervoor gezorgd dat we geen dubbele nummers hebben door een script te schrijven die sterk op elkaar lijkende txt-bestanden detecteert en rapporteert.
 
 \section{Voorbewerking}
-Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst.
+Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst. Voor de classificatie hebben we het k nearest neighbors, support vector machine en na\"ive bayes algoritme gebruikt. Voor alle drie de algoritmen hebben we getest welke soort document term matrix het beste werkte.We hebben biray, raw en tfidf document term matrices geprobeerd. Voor alle drie de algoritme kwam de binary matrix als beste naar boven en  deze hebben we dus gebruikt. 
+
+\section{parameters}
+Voor alle parameters hebben we uitgebreid getest wat de beste waarden was. Zowel met behulp van de tune functie als handmatige tests. Voor het knn algoritme gebruiken we een k van 9. Voor het svm algoritme gebruiken we een cost van 10 en een gamma van 0.001. 
+
+
+A description of the training and testing of the classifiers, and a comparison of their predictive performance.
+Interpretation of the results. Why did you get good or bad prediction results? Why do you think did one algorithm or weighting scheme work better than another?
 
 NB, 25
 Pairs
