@@ -1,11 +1,13 @@
-aggregate <- function(func, iterations = 10) {
-	result <- matrix(rep(0, each = length(genres) ^ 2), length(genres), length(genres))
+source("main.r")
+
+aggregate <- function(func, gens = genres, builder = buildCorpora, iterations = 10) {
+	result <- matrix(rep(0, each = length(gens) ^ 2), length(gens), length(gens))
 	for (i in 1:iterations) {
-		result <- result + func()
+		result <- result + func(gens, builder)
 	}
 	result <- (result * 100 / iterations) / (genreSize - trainSize)
 	avg <- 0
-	for (i in 1:length(genres)) {
+	for (i in 1:length(gens)) {
 		avg <- avg + result[i, i]
 	}
 	avg <- avg / length(genres)

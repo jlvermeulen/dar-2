@@ -17,14 +17,14 @@ buildCorpora <- function() {
 	lyrics
 }
 
-getLabels <- function() {
-	as.factor(rep(genres, each = genreSize))
+getLabels <- function(gens) {
+	as.factor(rep(gens, each = genreSize))
 }
 
-getSamples <- function() {
+getSamples <- function(gens) {
 	offset <- 1
 	samples <- c()
-	for (i in genres) {
+	for (i in gens) {
 		samples <- append(samples, sample(offset:(offset + genreSize - 1), trainSize))
 		offset <- offset + genreSize
 	}
@@ -59,37 +59,37 @@ reload <- function() {
 	source("main.r")
 }
 
-buildData <- function() {
-	lyrics <- preprocess(buildCorpora())
-	samples <- getSamples()
-	labels <- getLabels();
+buildData <- function(builder, gens) {
+	lyrics <- preprocess(builder())
+	samples <- getSamples(gens)
+	labels <- getLabels(gens);
 	train.dtm <- trainDTM(lyrics, samples)
 	test.dtm <- testDTM(train.dtm, lyrics, samples)
 	list(lyrics = lyrics, samples = samples, labels = labels, train.dtm = train.dtm, test.dtm = test.dtm)
 }
 
-testNaiveBayes <- function() {
+testNaiveBayes <- function(gens, builder) {
 	source("naivebayes.r")
 	options(warn = -1)
-	data <- buildData()
+	data <- buildData(builder, gens)
 	result <- doNaiveBayes(data$test.dtm, data$train.dtm, data$samples, data$labels)
 	options(warn = 0)
 	result
 }
 
-testKNN <- function(k = 10) {
+testKNN <- function(gens, builder, k = 9) {
 	source("knn.r")
 	options(warn = -1)
-	data <- buildData()
+	data <- buildData(builder, gens)
 	result <- doKNN(data$test.dtm, data$train.dtm, data$samples, data$labels, k)
 	options(warn = 0)
 	result
 }
 
-testSVM <- function() {
+testSVM <- function(gens, builder) {
 	source("svm.r")
 	options(warn = -1)
-	data <- buildData()
+	data <- buildData(builder, gens)
 	result <- doSVM(data$test.dtm, data$train.dtm, data$samples, data$labels)
 	options(warn = 0)
 	result
