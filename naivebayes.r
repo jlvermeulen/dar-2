@@ -1,10 +1,10 @@
 doNaiveBayes <- function(test.dtm, train.dtm, samples, labels) {
 	library(e1071)
-	train.bin <- toBin(train.dtm)
-	test.bin <- toBin(test.dtm)
+	train.dtm <- toBin(train.dtm)
+	test.dtm <- toBin(test.dtm)
 
-	nb <- naiveBayes(train.bin, labels[samples], laplace = 1)
-	prediction <- predict(nb, test.bin)
+	nb <- naiveBayes(train.dtm, labels[samples], laplace = 1)
+	prediction <- predict(nb, test.dtm)
 	table(prediction, labels[-samples])
 }
 
