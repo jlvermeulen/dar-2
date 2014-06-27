@@ -16,7 +16,10 @@
 We hebben het volgende classificatieprobleem onderzocht: het indelen van songteksten in de genres Blues, Country, Folk, Gospel, Metal, R\&B, Rap en Soul.  Om dat te kunnen doen hebben we een corpus verzameld van 50 songteksten per genre (in totaal 400). Deze songteksten hebben we op internet gezocht. Ter inspiratie voor de keuze van nummers hebben we indien nodig gebruik gemaakt van hitlijsten en verzamel-CD's. We hebben ervoor gezorgd dat we geen dubbele nummers hebben door een script te schrijven die sterk op elkaar lijkende txt-bestanden detecteert en rapporteert.
 
 \section{Voorbewerking}
-Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst. Voor de classificatie hebben we het k nearest neighbors, support vector machine en naive Bayes algoritme gebruikt. Voor alle drie de algoritmen hebben we getest welke soort document term matrix het beste werkte. We hebben binary, raw frequency en tf-idf document term matrices geprobeerd. Voor alle drie de algoritmes kwam de binary matrix als beste naar boven en deze hebben we dus gebruikt.
+Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst. Als laatste verwijderen we woorden die in minder dan 10\% van de documenten voorkomen, om de snelheid te verbeteren en overfitting te voorkomen.
+
+\section{Algoritmes}
+Voor de classificatie hebben we het k nearest neighbors, support vector machine en naive Bayes algoritme gebruikt. Voor alle drie de algoritmen hebben we getest welke soort document term matrix het beste werkte. We hebben binary, raw frequency en tf-idf document term matrices geprobeerd. Voor alle drie de algoritmes kwam de binary matrix als beste naar boven en deze hebben we dus gebruikt.
 
 \section{Parameters}
 Voor alle parameters hebben we uitgebreid getest wat de beste waarden waren, zowel met behulp van de tune functie als handmatige tests. Voor het kNN algoritme gebruiken we een k van 9. Voor het SVM algoritme gebruiken we een cost van 10 en een gamma van 0.001.
@@ -64,6 +67,8 @@ Een groot deel van de resultaten is niet zo verrassend. Veel classifiers vinden 
 Een interessante observatie was dat de nauwkeurigheid bij gebruik van alle klassen voor alle methodes sterk afhangt van het aantal documenten. We hadden eerst per genre 20 teksten, en de precisie was toen ongeveer de helft op de tests voor alle klassen. Het is dus mogelijk dat de effectiviteit nog drastisch toe kan nemen als er meer teksten zouden worden gebruikt.
 
 Ook interessant is het feit dat Naive Bayes het iets beter doet dan Support Vector Machines. Een mogelijk verklaring is dat de onafhankelijkheidsaanname van NB niet zo veel invloed heeft op teksten van liedjes als op andere domeinen. Het is ook mogelijk dat NB beter werkt dan andere methodes op relatief kleine datasets, zoals de onze.
+
+Het feit dat binaire matrices het beste werken heeft er waarschijnlijk mee te maken dat frequenties van woorden niet heel indicatief zijn voor een genre. Bij tf-idf worden veel voorkomende woorden als minder belangrijk gezien, maar hierdoor kan het juist gebeuren dat woorden die voor een genre als geheel wel defini\"erend zijn niet in beschouwing worden genomen. Ook kunnen zowel tf-idf en raw frequency zorgen voor rare classifiers, waarbij een heel specifiek aantal voorkomens nodig is om in een klasse te komen.
 
 \section{Alle data}
 \begin{table}[H]\centering
