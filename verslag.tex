@@ -23,6 +23,8 @@ Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat d
 \section{Parameters}
 Voor alle parameters hebben we uitgebreid getest wat de beste waarden was. Zowel met behulp van de tune functie als handmatige tests. Voor het knn algoritme gebruiken we een k van 9. Voor het svm algoritme gebruiken we een cost van 10 en een gamma van 0.001.
 
+\section{Data}
+We hebben voor elk algoritme 2 verschillende soorten tests uitgevoerd. Ten eerste hebben we voor gekeken naar de werking op de hele set van genres. De data van deze tests is te zien in de even tabellen. In de cel (Country, Folk) staat het percentage van de Country nummers die als Folk zijn gelabeld door het algoritme. Daarnaast hebben we gekeken naar de werking  op alle subsets van 2 genres. De data daarvan is te vinden in de oneven tabellen. In de cel (Country, Folk) staat het percentage van de Country nummers dat goed wordt geclasificeerd als de genres Country en Folk worden getest. Voor iedere soort test hebben we ook gekeken naar 3 verschillende grootes van de trainingsset namelijk 10, 25 en 40. De grote van de testset staat in de naam van de tabel samen met het algoritme en het soort test ("All" voor alle genres en "Pairs" voor de subset test).
 
 A description of the training and testing of the classifiers, and a comparison of their predictive performance.
 Interpretation of the results. Why did you get good or bad prediction results? Why do you think did one algorithm or weighting scheme work better than another?
