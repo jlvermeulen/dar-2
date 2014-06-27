@@ -2,6 +2,7 @@
 \usepackage[dutch]{babel}
 \usepackage{amsmath}
 \usepackage{tabu}
+\usepackage{float}
 
 \begin{document}
 
@@ -18,7 +19,7 @@
 We hebben het volgende classificatieprobleem onderzocht: het indelen van songteksten in de genres Blues, Country, Folk, Gospel, Metal, R\&B, Rap en Soul.  Om dat te kunnen doen hebben we een corpus verzameld van 50 songteksten per genre (in totaal 400). Deze songteksten hebben we op internet gezocht. Ter inspiratie voor de keuze van nummer hebben we indien nodig gebruik gemaakt van hitlijsten en verzamel-CD's. We hebben ervoor gezorgd dat we geen dubbele nummers hebben door een script te schrijven die sterk op elkaar lijkende txt-bestanden detecteert en rapporteert.
 
 \section{Voorbewerking}
-Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst. Voor de classificatie hebben we het k nearest neighbors, support vector machine en na\"ive bayes algoritme gebruikt. Voor alle drie de algoritmen hebben we getest welke soort document term matrix het beste werkte.We hebben biray, raw en tfidf document term matrices geprobeerd. Voor alle drie de algoritme kwam de binary matrix als beste naar boven en  deze hebben we dus gebruikt.
+Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst. Voor de classificatie hebben we het k nearest neighbors, support vector machine en na\"ive bayes algoritme gebruikt. Voor alle drie de algoritmen hebben we getest welke soort document term matrix het beste werkte.We hebben biray, raw en tf-idf document term matrices geprobeerd. Voor alle drie de algoritme kwam de binary matrix als beste naar boven en  deze hebben we dus gebruikt.
 
 \section{Parameters}
 Voor alle parameters hebben we uitgebreid getest wat de beste waarden was. Zowel met behulp van de tune functie als handmatige tests. Voor het knn algoritme gebruiken we een k van 9. Voor het svm algoritme gebruiken we een cost van 10 en een gamma van 0.001.
@@ -27,7 +28,31 @@ Voor alle parameters hebben we uitgebreid getest wat de beste waarden was. Zowel
 A description of the training and testing of the classifiers, and a comparison of their predictive performance.
 Interpretation of the results. Why did you get good or bad prediction results? Why do you think did one algorithm or weighting scheme work better than another?
 
-\begin{table}
+\begin{table}[H]
+\caption{Gemiddelden voor training size 10.}
+\begin{tabu}{l|l|l}
+Naive Bayes & kNN & SVM \\ \hline
+36.8125 & 22.875 & 34.25 \\
+\end{tabu}
+\end{table}
+
+\begin{table}[H]
+\caption{Gemiddelden voor training size 25.}
+\begin{tabu}{l|l|l}
+Naive Bayes & kNN & SVM \\ \hline
+41.25 & 25.3 & 40.2 \\
+\end{tabu}
+\end{table}
+
+\begin{table}[H]
+\caption{Gemiddelden voor training size 40.}
+\begin{tabu}{l|l|l}
+Naive Bayes & kNN & SVM \\ \hline
+42.125 & 27 & 40.375 \\
+\end{tabu}
+\end{table}
+
+\begin{table}[H]
 \caption{NB, 25, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -38,11 +63,11 @@ Gospel & 85.6 & 74.0 & 82.4 & 0.0 & 61.2 & 86.8 & 97.2 & 80.4 \\
 Metal & 89.6 & 81.2 & 84.8 & 74.4 & 0.0 & 88.8 & 98.0 & 84.4 \\
 R\&B & 69.6 & 60.8 & 73.2 & 73.6 & 71.6 & 0.0 & 80.0 & 58.0 \\
 Rap & 90.8 & 88.0 & 91.2 & 88.8 & 88.4 & 81.2 & 0.0 & 90.4 \\
+Soul & 60.8 & 62.0 & 73.6 & 79.2 & 82.8 & 81.6 & 100.0 & 0.0 \\
 \end{tabu}
 \end{table}
 
-Average 41.25
-\begin{table}
+\begin{table}[H]
 \caption{NB, 25, All}
 \begin{tabu}{l|*{8}{l}}
 &Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -53,10 +78,11 @@ Gospel & 1.6 & 8.8 & 9.6 & 36.8 & 19.6 & 6.8 & 0.4 & 4.4 \\
 Metal & 2.4 & 12.0 & 24.0 & 32.8 & 49.2 & 4.8 & 0.4 & 7.2 \\
 R\&B & 4.0 & 3.2 & 7.6 & 6.4 & 4.0 & 35.2 & 13.2 & 19.2 \\
 Rap & 0.0 & 0.0 & 0.0 & 0.0 & 0.8 & 21.6 & 74.0 & 0.4 \\
+Soul & 8.0 & 16.0 & 4.4 & 4.0 & 3.2 & 16.0 & 6.0 & 26.0 \\
 \end{tabu}
 \end{table}
 
-\begin{table}
+\begin{table}[H]
 \caption{NB, 10, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -67,11 +93,11 @@ Gospel & 72.25 & 59.50 & 82.00 & 0.00 & 67.25 & 94.25 & 100.00 & 61.25 \\
 Metal & 69.50 & 72.75 & 67.50 & 61.25 & 0.00 & 92.75 & 99.75 & 69.25 \\
 R\&B & 41.75 & 40.50 & 64.25 & 48.75 & 62.00 & 0.00 & 93.25 & 39.25 \\
 Rap & 52.75 & 62.25 & 69.75 & 74.75 & 72.50 & 45.25 & 0.00 & 57.00 \\
+Soul & 42.50 & 57.25 & 90.75 & 90.00 & 91.50 & 90.75 & 100.00 & 0.00 \\
 \end{tabu}
 \end{table}
 
-Average 36.8125
-\begin{table}
+\begin{table}[H]
 \caption{NB, 10, All}
 \begin{tabu}{l|*{8}{l}}
 &	Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -82,10 +108,11 @@ Gospel & 3.00 & 9.75 & 21.25 & 43.25 & 29.00 & 10.50 & 0.50 & 8.75 \\
 Metal & 3.00 & 8.75 & 14.25 & 18.50 & 38.25 & 6.25 & 1.75 & 5.50 \\
 R\&B & 2.00 & 2.00 & 1.50 & 4.75 & 1.50 & 26.50 & 18.75 & 9.25 \\
 Rap & 0.00 & 0.00 & 0.25 & 0.25 & 0.50 & 15.25 & 60.75 & 0.00 \\
+Soul & 13.00 & 14.50 & 4.75 & 6.75 & 5.75 & 19.25 & 7.50 & 26.75 \\
 \end{tabu}
 \end{table}
 
-\begin{table}
+\begin{table}[H]
 \caption{NB, 40, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -96,11 +123,11 @@ Gospel & 81 & 82 & 76 & 0 & 70 & 83 & 97 & 84 \\
 Metal & 95 & 83 & 75 & 80 & 0 & 87 & 98 & 87 \\
 R\&B & 75 & 69 & 73 & 72 & 83 & 0 & 79 & 64 \\
 Rap & 94 & 93 & 89 & 94 & 86 & 76 & 0 & 88 \\
+Soul & 64 & 75 & 84 & 88 & 87 & 81 & 100 & 0 \\
 \end{tabu}
 \end{table}
 
-Average 42.125
-\begin{table}
+\begin{table}[H]
 \caption{NB, 40, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -111,10 +138,11 @@ Gospel & 1 & 12 & 7 & 39 & 25 & 8 & 2 & 5 \\
 Metal & 3 & 7 & 24 & 30 & 46 & 2 & 0 & 6 \\
 R\&B & 6 & 4 & 5 & 8 & 5 & 32 & 9 & 18 \\
 Rap & 0 & 1 & 0 & 0 & 0 & 27 & 78 & 2 \\
+Soul & 9 & 20 & 6 & 1 & 5 & 24 & 8 & 31 \\
 \end{tabu}
 \end{table}
 
-\begin{table}
+\begin{table}[H]
 \caption{KNN, 25, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -125,11 +153,11 @@ Gospel & 76.8 & 43.2 & 20.4 & 0.0 & 54.8 & 91.6 & 100 & 78.0 \\
 Metal & 85.2 & 62.8 & 54.0 & 66.0 & 0.0 & 99.6 & 100 & 88.8 \\
 R\&B & 26.0 & 27.6 & 32.0 & 54.0 & 39.2 & 0.0 & 100 & 24.4 \\
 Rap & 22.4 & 21.2 & 23.2 & 34.0 & 27.6 & 16.4 & 0 & 14.4 \\
+Soul & 36.4 & 36.8 & 53.2 & 68.4 & 54.8 & 87.6 & 100 & 0.0 \\
 \end{tabu}
 \end{table}
 
-Average 25.3
-\begin{table}
+\begin{table}[H]
 \caption{KNN, 25, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -140,10 +168,11 @@ Gospel & 9.2 & 12.0 & 10.4 & 22.4 & 17.6 & 11.2 & 4.0 & 9.2 \\
 Metal & 15.6 & 28.0 & 41.2 & 39.2 & 49.6 & 15.6 & 5.2 & 22.0 \\
 R\&B & 0.0 & 0.8 & 0.0 & 2.8 & 0.0 & 13.2 & 13.2 & 1.6 \\
 Rap & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 7.6 & 37.2 & 0.0 \\
+Soul & 2.8 & 6.4 & 2.0 & 3.2 & 2.4 & 13.6 & 13.6 & 9.2 \\
 \end{tabu}
 \end{table}
 
-\begin{table}
+\begin{table}[H]
 \caption{KNN, 10, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -154,11 +183,11 @@ Gospel & 15.25 & 42.00 & 53.50 & 0.00 & 30.50 & 89.50 & 100 & 61.25 \\
 Metal & 29.25 & 35.75 & 76.50 & 82.00 & 0.00 & 97.75 & 100 & 76.50 \\
 R\&B & 12.25 & 23.00 & 47.75 & 36.00 & 20.75 & 0.00 & 100 & 12.50 \\
 Rap & 0.25 & 3.50 & 8.75 & 2.25 & 4.75 & 2.25 & 0 & 0.25 \\
+Soul & 34.25 & 42.75 & 75.75 & 70.75 & 68.25 & 92.75 & 100 & 0.00 \\
 \end{tabu}
 \end{table}
 
-Average 22.875
-\begin{table}
+\begin{table}[H]
 \caption{KNN, 10, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -169,10 +198,11 @@ Gospel & 11.25 & 12.75 & 17.25 & 25.50 & 24.75 & 8.50 & 6.75 & 15.50 \\
 Metal & 23.25 & 29.75 & 36.50 & 42.00 & 46.75 & 22.00 & 9.75 & 26.00 \\
 R\&B & 0.75 & 1.50 & 0.50 & 1.50 & 0.50 & 12.00 & 15.75 & 3.00 \\
 Rap & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 2.25 & 21.75 & 0.00 \\
+Soul & 4.25 & 6.00 & 3.50 & 4.75 & 3.50 & 20.00 & 16.75 & 14.00 \\
 \end{tabu}
 \end{table}
 
-\begin{table}
+\begin{table}[H]
 \caption{KNN, 40, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -183,11 +213,11 @@ Gospel & 79 & 43 & 22 & 0 & 37 & 95 & 100 & 83 \\
 Metal & 94 & 76 & 32 & 79 & 0 & 98 & 100 & 91 \\
 R\&B & 41 & 28 & 45 & 50 & 50 & 0 & 99 & 19 \\
 Rap & 35 & 31 & 35 & 43 & 38 & 21 & 0 & 28 \\
+Soul & 44 & 35 & 39 & 74 & 41 & 95 & 100 & 0 \\
 \end{tabu}
 \end{table}
 
-Average 27
-\begin{table}
+\begin{table}[H]
 \caption{KNN, 40, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -202,7 +232,7 @@ Soul & 5 & 9 & 0 & 2 & 3 & 21 & 21 & 15 \\
 \end{tabu}
 \end{table}
 
-\begin{table}
+\begin{table}[H]
 \caption{SVM, 25, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -213,11 +243,11 @@ Gospel & 80.8 & 80.8 & 77.2 & 0.0 & 64.0 & 78.8 & 94.8 & 80.8 \\
 Metal & 83.2 & 83.6 & 75.2 & 71.2 & 0.0 & 81.2 & 98.8 & 82.8 \\
 R\&B & 72.4 & 65.2 & 80.0 & 69.6 & 77.6 & 0.0 & 84.8 & 56.8 \\
 Rap & 90.4 & 86.4 & 92.0 & 90.0 & 93.2 & 68.8 & 0.0 & 86.4 \\
+Soul & 59.6 & 62.0 & 76.8 & 88.4 & 79.2 & 72.0 & 99.2 & 0.0 \\
 \end{tabu}
 \end{table}
 
-Average 40.2
-\begin{table}
+\begin{table}[H]
 \caption{SVM, 25, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -228,10 +258,11 @@ Gospel & 5.2 & 6.4 & 10.8 & 45.2 & 23.2 & 9.2 & 0.0 & 5.2 \\
 Metal & 1.2 & 9.2 & 20.8 & 25.6 & 39.6 & 7.2 & 1.2 & 4.8 \\
 R\&B & 0.8 & 7.6 & 3.6 & 5.2 & 4.4 & 32.8 & 24.4 & 14.0 \\
 Rap & 0.4 & 0.8 & 0.4 & 0.0 & 0.0 & 14.8 & 62.8 & 0.0 \\
+Soul & 9.2 & 11.2 & 4.4 & 3.2 & 4.8 & 17.2 & 3.6 & 31.2 \\
 \end{tabu}
 \end{table}
 
-\begin{table}
+\begin{table}[H]
 \caption{SVM, 10, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -242,11 +273,11 @@ Gospel & 75.00 & 69.25 & 76.75 & 0.00 & 69.25 & 80.25 & 98.25 & 73.75 \\
 Metal & 71.00 & 65.75 & 69.50 & 63.25 & 0.00 & 84.00 & 99.50 & 71.00 \\
 R\&B & 66.25 & 58.00 & 80.00 & 76.00 & 76.75 & 0.00 & 87.50 & 47.50 \\
 Rap & 76.00 & 78.25 & 76.75 & 81.25 & 85.25 & 53.00 & 0.00 & 63.75 \\
+Soul & 46.50 & 65.00 & 80.75 & 78.50 & 86.00 & 81.75 & 100.00 & 0.00
 \end{tabu}
 \end{table}
 
-Average 34.25
-\begin{table}
+\begin{table}[H]
 \caption{SVM, 10, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -257,10 +288,11 @@ Gospel & 3.75 & 9.50 & 12.75 & 40.25 & 29.50 & 8.50 & 0.75 & 7.75 \\
 Metal & 4.50 & 10.50 & 19.25 & 21.50 & 32.50 & 7.75 & 1.00 & 6.75 \\
 R\&B & 2.00 & 3.00 & 3.00 & 3.75 & 1.50 & 27.50 & 24.00 & 11.50 \\
 Rap & 0.00 & 0.25 & 0.25 & 0.00 & 0.25 & 13.00 & 55.75 & 1.25 \\
+Soul & 15.25 & 14.25 & 8.00 & 8.00 & 5.50 & 20.25 & 5.75 & 25.25 \\
 \end{tabu}
 \end{table}
 
-\begin{table}
+\begin{table}[H]
 \caption{SVM, 40, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -271,11 +303,11 @@ Gospel & 86 & 82 & 75 & 0 & 66 & 75 & 96 & 75 \\
 Metal & 87 & 85 & 66 & 75 & 0 & 84 & 99 & 69 \\
 R\&B & 73 & 67 & 72 & 78 & 68 & 0 & 81 & 49 \\
 Rap & 89 & 94 & 92 & 91 & 93 & 76 & 0 & 84 \\
+Soul & 77 & 58 & 75 & 84 & 84 & 68 & 100 & 0
 \end{tabu}
 \end{table}
 
-Average 40.375
-\begin{table}
+\begin{table}[H]
 \caption{SVM, 40, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -286,6 +318,7 @@ Gospel & 0 & 3 & 8 & 34 & 18 & 5 & 1 & 7 \\
 Metal & 0 & 7 & 26 & 23 & 44 & 1 & 0 & 7 \\
 R\&B & 1 & 4 & 6 & 6 & 4 & 35 & 27 & 14 \\
 Rap & 0 & 0 & 0 & 0 & 0 & 13 & 63 & 0 \\
+Soul & 11 & 8 & 6 & 3 & 7 & 18 & 3 & 24 \\
 \end{tabu}
 \end{table}
 

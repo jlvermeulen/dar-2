@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.10.13)  26 JUN 2014 21:46
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.10.13)  27 JUN 2014 10:59
 entering extended mode
 **verslag.tex
 ("E:\FTP\School\GameTech\Data-analyse en Retrieval\Practicum 2\verslag.tex"
@@ -142,69 +142,78 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@hleads=\box31
 \tabu@vleads=\box32
 \tabu@cellskip=\skip48
-) ("E:\FTP\School\GameTech\Data-analyse en Retrieval\Practicum 2\verslag.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-
-Overfull \hbox (10.7202pt too wide) in paragraph at lines 61--71
-[][] 
- []
-
-
-Overfull \hbox (5.72018pt too wide) in paragraph at lines 76--86
-[][] 
- []
+) (D:\MiKTeX\tex\latex\float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count107
+\float@exts=\toks22
+\float@box=\box33
+\@float@everytoks=\toks23
+\@floatcapt=\box34
+)
+("E:\FTP\School\GameTech\Data-analyse en Retrieval\Practicum 2\verslag.aux")
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
 
 [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Overfull \hbox (0.85904pt too wide) in paragraph at lines 148--158
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Overfull \hbox (10.7202pt too wide) in paragraph at lines 87--98
 [][] 
  []
 
-
-Overfull \hbox (5.72018pt too wide) in paragraph at lines 163--173
+[2]
+Overfull \hbox (5.72018pt too wide) in paragraph at lines 102--113
 [][] 
  []
 
-
-Overfull \hbox (10.7202pt too wide) in paragraph at lines 236--246
+[3]
+Overfull \hbox (0.85904pt too wide) in paragraph at lines 177--188
 [][] 
  []
 
-
-Overfull \hbox (5.72018pt too wide) in paragraph at lines 251--261
+[4]
+Overfull \hbox (5.72018pt too wide) in paragraph at lines 192--203
 [][] 
  []
 
-[3] [4] [5] [6]
+[5]
+Overfull \hbox (10.7202pt too wide) in paragraph at lines 267--278
+[][] 
+ []
+
+[6]
+Overfull \hbox (5.72018pt too wide) in paragraph at lines 282--293
+[][] 
+ []
+
+[7] [8]
 ("E:\FTP\School\GameTech\Data-analyse en Retrieval\Practicum 2\verslag.aux") ) 
 Here is how much of TeX's memory you used:
- 1971 strings out of 493921
- 24253 string characters out of 3154499
- 130322 words of memory out of 3000000
- 5296 multiletter control sequences out of 15000+200000
+ 2031 strings out of 493921
+ 24967 string characters out of 3154499
+ 97996 words of memory out of 3000000
+ 5352 multiletter control sequences out of 15000+200000
  9015 words of font info for 33 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 27i,11n,24p,809b,370s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,10n,24p,810b,368s stack positions out of 5000i,500n,10000p,200000b,50000s
 <
 D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/MiKTeX/fonts/type1/publ
 ic/amsfonts/cm/cmbx9.pfb><D:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D
 :/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/MiKTeX/fonts/type1/public
 /amsfonts/cm/cmr17.pfb>
-Output written on verslag.pdf (6 pages, 80387 bytes).
+Output written on verslag.pdf (8 pages, 82691 bytes).
 PDF statistics:
- 41 PDF objects out of 1000 (max. 8388607)
+ 49 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
