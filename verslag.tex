@@ -19,19 +19,16 @@
 We hebben het volgende classificatieprobleem onderzocht: het indelen van songteksten in de genres Blues, Country, Folk, Gospel, Metal, R\&B, Rap en Soul.  Om dat te kunnen doen hebben we een corpus verzameld van 50 songteksten per genre (in totaal 400). Deze songteksten hebben we op internet gezocht. Ter inspiratie voor de keuze van nummers hebben we indien nodig gebruik gemaakt van hitlijsten en verzamel-CD's. We hebben ervoor gezorgd dat we geen dubbele nummers hebben door een script te schrijven die sterk op elkaar lijkende txt-bestanden detecteert en rapporteert.
 
 \section{Voorbewerking}
-Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst. Voor de classificatie hebben we het k nearest neighbors, support vector machine en naive bayes algoritme gebruikt. Voor alle drie de algoritmen hebben we getest welke soort document term matrix het beste werkte. We hebben binary, raw frequency en tf-idf document term matrices geprobeerd. Voor alle drie de algoritmes kwam de binary matrix als beste naar boven en deze hebben we dus gebruikt.
+Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst. Voor de classificatie hebben we het k nearest neighbors, support vector machine en naive Bayes algoritme gebruikt. Voor alle drie de algoritmen hebben we getest welke soort document term matrix het beste werkte. We hebben binary, raw frequency en tf-idf document term matrices geprobeerd. Voor alle drie de algoritmes kwam de binary matrix als beste naar boven en deze hebben we dus gebruikt.
 
 \section{Parameters}
 Voor alle parameters hebben we uitgebreid getest wat de beste waarden was, zowel met behulp van de tune functie als handmatige tests. Voor het kNN algoritme gebruiken we een k van 9. Voor het SVM algoritme gebruiken we een cost van 10 en een gamma van 0.001.
 
 \section{Data}
-We hebben voor elk algoritme twee verschillende soorten tests uitgevoerd. Ten eerste hebben we voor gekeken naar de werking op de hele set van genres. De data van deze tests is te zien in de tabellen 5, 7, 9, 11, 13, 15, 17, 19 en 21 . In de cel (Country, Folk) staat het percentage van de Country nummers die als Folk zijn gelabeld door het algoritme. Daarnaast hebben we gekeken naar de werking  op alle subsets van twee genres. De data daarvan is te vinden in de tabellen 4, 6, 8, 10, 12, 14, 16, 18 en 20. In de cel (Country, Folk) staat het percentage van de Country nummers dat goed wordt geclassificeerd als de genres Country en Folk worden getest. Voor iedere soort test hebben we ook gekeken naar 3 verschillende groottes van de trainingsset namelijk 10, 25 en 40. De grootte van de testset staat in de naam van de tabel samen met het algoritme en het soort test ("All" voor alle genres en "Pairs" voor de subset test). Om de data makkelijker te kunnen analyseren hebben we tabellen met gemiddelden gemaakt per grootte van de trainingsset.
+We hebben voor elk algoritme twee verschillende soorten tests uitgevoerd. Ten eerste hebben we voor gekeken naar de werking op de hele set van genres. De data van deze tests is te zien in de tabellen 5, 7, 9, 11, 13, 15, 17, 19 en 21 . In de kolom Country bij rij Folk staat het percentage van de Country nummers die als Folk zijn gelabeld door het algoritme. Daarnaast hebben we gekeken naar de werking  op alle subsets van twee genres. De data daarvan is te vinden in de tabellen 4, 6, 8, 10, 12, 14, 16, 18 en 20. In de kolom Country bij rij Folk staat het percentage van de Country nummers dat goed wordt geclassificeerd als de genres Country en Folk worden getest. Voor iedere soort test hebben we ook gekeken naar 3 verschillende groottes van de trainingsset namelijk 10, 25 en 40. De grootte van de testset staat in de naam van de tabel samen met het algoritme en het soort test ("All" voor alle genres en "Pairs" voor de subset test). Om de data makkelijker te kunnen analyseren hebben we tabellen met gemiddelden gemaakt per grootte van de trainingsset.
 
-\section{Resulataten}
-Uit onze data concluderen we dat het Naive Bayes algoritme het beste werk op de tests met alle genres voor alle groottes van trainingsset. Het SVM algoritme werkt net iets slechter en het kNN algoritme werkt het minst goed. Uit de resultaten van de "Pairs" testen kan hetzelfde geconcludeerd worden. Alleen bij trainingssize 10 werk SVM net iets beter dan het Naive Bayes algoritme. Voor de grootte van de trainingsset geeft 40 overal het de beste  resultaten, gevolgd door 25 en de tests met een grootte van 10 gaf de slechtste resultaten. 
-
-A description of the training and testing of the classifiers, and a comparison of their predictive performance.
-Interpretation of the results. Why did you get good or bad prediction results? Why do you think did one algorithm or weighting scheme work better than another?
+\section{Resultaten}
+De geaggregeerde resultaten zijn als volgt:
 
 \begin{table}[H]\centering
 \caption{Gemiddelden voor training size 10.}
@@ -60,6 +57,18 @@ All & 42.1 & 27.0 & 40.4 \\
 \end{tabu}
 \end{table}
 
+Uit onze data concluderen we dat het Naive Bayes algoritme het beste werk op de tests met alle genres voor alle groottes van trainingsset. Het SVM algoritme werkt net iets slechter en het kNN algoritme werkt het minst goed. Uit de resultaten van de "Pairs" testen kan hetzelfde geconcludeerd worden. Alleen bij trainingssize 10 werk SVM net iets beter dan het Naive Bayes algoritme. Voor de grootte van de trainingsset geeft 40 overal het de beste  resultaten, gevolgd door 25 en de tests met een grootte van 10 gaf de slechtste resultaten. 
+
+Interpretation of the results. Why did you get good or bad prediction results? Why do you think did one algorithm or weighting scheme work better than another?
+
+\section{Analyse}
+Een groot deel van de resultaten is niet zo verrassend. Veel classifiers vinden het bijvoorbeeld moeilijk om Country en Folk uit elkaar te halen. Dat is niet zo gek, want deze genres liggen qua tekst over het algemeen vrij dicht bij elkaar. kNN classificeert bij paren Rap altijd goed, maar maakt dan veel fouten bij het toekennen van het alternatieve label, wat kan duiden op overfitting of ongeschikte features voor het genre Rap. Het is ook mogelijk dat er niet genoeg documenten zijn om kNN effectief in te kunnen zetten.
+
+Een interessante observatie was dat de nauwkeurigheid bij gebruik van alle klassen voor alle methodes sterk afhangt van het aantal documenten. We hadden eerst per genre 20 teksten, en de precisie was toen ongeveer de helft op de tests voor alle klassen. Het is dus mogelijk dat de effectiviteit nog drastisch toe kan nemen als er meer teksten zouden worden gebruikt.
+
+Ook interessant is het feit dat Naive Bayes het iets beter doet dan Support Vector Machines. Een mogelijk verklaring is dat de onafhankelijkheidsaanname van NB niet zo veel invloed heeft op teksten van liedjes als op andere domeinen. Het is ook mogelijk dat NB beter werkt dan andere methodes op relatief kleine datasets, zoals de onze.
+
+\section{Alle data}
 \begin{table}[H]\centering
 \caption{NB, 25, Pairs}
 \begin{tabu}{l|*{8}{l}}
