@@ -58,8 +58,6 @@ All & 42.1 & 27.0 & 40.4 \\
 
 Uit onze data concluderen we dat het Naive Bayes algoritme het beste werk op de tests met alle genres voor alle groottes van trainingsset. Het SVM algoritme werkt net iets slechter en het kNN algoritme werkt het minst goed. Uit de resultaten van de "Pairs" testen kan hetzelfde geconcludeerd worden. Alleen bij trainingssize 10 werk SVM net iets beter dan het Naive Bayes algoritme. Voor de grootte van de trainingsset geeft 40 overal het de beste  resultaten, gevolgd door 25 en de tests met een grootte van 10 gaf de slechtste resultaten. 
 
-Interpretation of the results. Why did you get good or bad prediction results? Why do you think did one algorithm or weighting scheme work better than another?
-
 \section{Analyse}
 Een groot deel van de resultaten is niet zo verrassend. Veel classifiers vinden het bijvoorbeeld moeilijk om Country en Folk uit elkaar te halen. Dat is niet zo gek, want deze genres liggen qua tekst over het algemeen vrij dicht bij elkaar. kNN classificeert bij paren Rap altijd goed, maar maakt dan veel fouten bij het toekennen van het alternatieve label, wat kan duiden op overfitting of ongeschikte features voor het genre Rap. Het is ook mogelijk dat er niet genoeg documenten zijn om kNN effectief in te kunnen zetten.
 
