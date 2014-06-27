@@ -16,45 +16,48 @@
 \end{abstract}
 
 \section{Probleem en omschrijving corpus}
-We hebben het volgende classificatieprobleem onderzocht: het indelen van songteksten in de genres Blues, Country, Folk, Gospel, Metal, R\&B, Rap en Soul.  Om dat te kunnen doen hebben we een corpus verzameld van 50 songteksten per genre (in totaal 400). Deze songteksten hebben we op internet gezocht. Ter inspiratie voor de keuze van nummer hebben we indien nodig gebruik gemaakt van hitlijsten en verzamel-CD's. We hebben ervoor gezorgd dat we geen dubbele nummers hebben door een script te schrijven die sterk op elkaar lijkende txt-bestanden detecteert en rapporteert.
+We hebben het volgende classificatieprobleem onderzocht: het indelen van songteksten in de genres Blues, Country, Folk, Gospel, Metal, R\&B, Rap en Soul.  Om dat te kunnen doen hebben we een corpus verzameld van 50 songteksten per genre (in totaal 400). Deze songteksten hebben we op internet gezocht. Ter inspiratie voor de keuze van nummers hebben we indien nodig gebruik gemaakt van hitlijsten en verzamel-CD's. We hebben ervoor gezorgd dat we geen dubbele nummers hebben door een script te schrijven die sterk op elkaar lijkende txt-bestanden detecteert en rapporteert.
 
 \section{Voorbewerking}
-Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst. Voor de classificatie hebben we het k nearest neighbors, support vector machine en na\"ive bayes algoritme gebruikt. Voor alle drie de algoritmen hebben we getest welke soort document term matrix het beste werkte.We hebben biray, raw en tf-idf document term matrices geprobeerd. Voor alle drie de algoritme kwam de binary matrix als beste naar boven en  deze hebben we dus gebruikt.
+Voordat we de teksten gaan analyseren halen we eerst alle whitespace weg zodat die niet interfereren met de uitkomst. Vervolgens vervangen we alle hoofdletters door normale letters omdat die voor ons doeleinde hetzelfde betekenen. Daarna verwijderen we alle Engelse stopwoorden omdat deze in alle genres voorkomen en dus niet interessant zijn om te bekijken. Ook verwijderen we alle getallen in de tekst. Voor de classificatie hebben we het k nearest neighbors, support vector machine en naive bayes algoritme gebruikt. Voor alle drie de algoritmen hebben we getest welke soort document term matrix het beste werkte. We hebben binary, raw frequency en tf-idf document term matrices geprobeerd. Voor alle drie de algoritmes kwam de binary matrix als beste naar boven en deze hebben we dus gebruikt.
 
 \section{Parameters}
-Voor alle parameters hebben we uitgebreid getest wat de beste waarden was. Zowel met behulp van de tune functie als handmatige tests. Voor het knn algoritme gebruiken we een k van 9. Voor het svm algoritme gebruiken we een cost van 10 en een gamma van 0.001.
+Voor alle parameters hebben we uitgebreid getest wat de beste waarden was, zowel met behulp van de tune functie als handmatige tests. Voor het kNN algoritme gebruiken we een k van 9. Voor het SVM algoritme gebruiken we een cost van 10 en een gamma van 0.001.
 
 \section{Data}
-We hebben voor elk algoritme 2 verschillende soorten tests uitgevoerd. Ten eerste hebben we voor gekeken naar de werking op de hele set van genres. De data van deze tests is te zien in de even tabellen. In de cel (Country, Folk) staat het percentage van de Country nummers die als Folk zijn gelabeld door het algoritme. Daarnaast hebben we gekeken naar de werking  op alle subsets van 2 genres. De data daarvan is te vinden in de oneven tabellen. In de cel (Country, Folk) staat het percentage van de Country nummers dat goed wordt geclasificeerd als de genres Country en Folk worden getest. Voor iedere soort test hebben we ook gekeken naar 3 verschillende grootes van de trainingsset namelijk 10, 25 en 40. De grote van de testset staat in de naam van de tabel samen met het algoritme en het soort test ("All" voor alle genres en "Pairs" voor de subset test).
+We hebben voor elk algoritme twee verschillende soorten tests uitgevoerd. Ten eerste hebben we gekeken naar de werking op de hele set van genres. De data van deze tests is te zien in de even tabellen. In de cel (Country, Folk) staat het percentage van de Country nummers die als Folk zijn gelabeld door het algoritme. Daarnaast hebben we gekeken naar de werking  op alle paren genres. De data daarvan is te vinden in de oneven tabellen. In de cel (Country, Folk) staat het percentage van de Country nummers dat goed wordt geclassificeerd als de genres Country en Folk worden getest. Voor iedere soort test hebben we ook gekeken naar 3 verschillende groottes van de trainingsset, namelijk 10, 25 en 40. De grootte van de testset staat in de naam van de tabel samen met het algoritme en het soort test ("All" voor alle genres en "Pairs" voor de paren).
 
 A description of the training and testing of the classifiers, and a comparison of their predictive performance.
 Interpretation of the results. Why did you get good or bad prediction results? Why do you think did one algorithm or weighting scheme work better than another?
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{Gemiddelden voor training size 10.}
-\begin{tabu}{l|l|l}
-Naive Bayes & kNN & SVM \\ \hline
-36.8125 & 22.875 & 34.25 \\
+\begin{tabu}{l|l|l|l}
+& Naive Bayes & kNN & SVM \\ \hline
+Pairs & 73.0 & 56.7 & 76.1 \\
+All & 36.8 & 22.9 & 34.3 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{Gemiddelden voor training size 25.}
-\begin{tabu}{l|l|l}
-Naive Bayes & kNN & SVM \\ \hline
-41.25 & 25.3 & 40.2 \\
+\begin{tabu}{l|l|l|l}
+& Naive Bayes & kNN & SVM \\ \hline
+Pairs & 81.0 & 64.9 & 80.0 \\
+All & 41.3 & 25.3 & 40.2 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{Gemiddelden voor training size 40.}
-\begin{tabu}{l|l|l}
-Naive Bayes & kNN & SVM \\ \hline
-42.125 & 27 & 40.375 \\
+\begin{tabu}{l|l|l|l}
+& Naive Bayes & kNN & SVM \\ \hline
+Pairs & 82.2 & 67.5 & 80.1 \\
+All & 42.1 & 27.0 & 40.4 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{NB, 25, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -69,7 +72,7 @@ Soul & 60.8 & 62.0 & 73.6 & 79.2 & 82.8 & 81.6 & 100.0 & 0.0 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{NB, 25, All}
 \begin{tabu}{l|*{8}{l}}
 &Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -84,7 +87,7 @@ Soul & 8.0 & 16.0 & 4.4 & 4.0 & 3.2 & 16.0 & 6.0 & 26.0 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{NB, 10, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -99,7 +102,7 @@ Soul & 42.50 & 57.25 & 90.75 & 90.00 & 91.50 & 90.75 & 100.00 & 0.00 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{NB, 10, All}
 \begin{tabu}{l|*{8}{l}}
 &	Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -114,7 +117,7 @@ Soul & 13.00 & 14.50 & 4.75 & 6.75 & 5.75 & 19.25 & 7.50 & 26.75 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{NB, 40, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -129,7 +132,7 @@ Soul & 64 & 75 & 84 & 88 & 87 & 81 & 100 & 0 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{NB, 40, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -144,8 +147,8 @@ Soul & 9 & 20 & 6 & 1 & 5 & 24 & 8 & 31 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
-\caption{KNN, 25, Pairs}
+\begin{table}[H]\centering
+\caption{kNN, 25, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
 Blues & 0.0 & 53.2 & 59.6 & 89.2 & 80.8 & 99.6 & 100 & 86.0 \\
@@ -159,8 +162,8 @@ Soul & 36.4 & 36.8 & 53.2 & 68.4 & 54.8 & 87.6 & 100 & 0.0 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
-\caption{KNN, 25, All}
+\begin{table}[H]\centering
+\caption{kNN, 25, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
 Blues & 24.0 & 4.8 & 6.0 & 2.8 & 0.8 & 8.0 & 12.0 & 16.8 \\
@@ -174,8 +177,8 @@ Soul & 2.8 & 6.4 & 2.0 & 3.2 & 2.4 & 13.6 & 13.6 & 9.2 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
-\caption{KNN, 10, Pairs}
+\begin{table}[H]\centering
+\caption{kNN, 10, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
 Blues & 0.00 & 68.25 & 90.75 & 96.25 & 92.75 & 98.00 & 100 & 84.25 \\
@@ -189,8 +192,8 @@ Soul & 34.25 & 42.75 & 75.75 & 70.75 & 68.25 & 92.75 & 100 & 0.00 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
-\caption{KNN, 10, All}
+\begin{table}[H]\centering
+\caption{kNN, 10, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
 Blues & 28.00 & 16.25 & 12.00 & 4.00 & 4.00 & 16.00 & 18.25 & 22.00 \\
@@ -204,8 +207,8 @@ Soul & 4.25 & 6.00 & 3.50 & 4.75 & 3.50 & 20.00 & 16.75 & 14.00 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
-\caption{KNN, 40, Pairs}
+\begin{table}[H]\centering
+\caption{kNN, 40, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
 Blues & 0 & 58 & 47 & 92 & 83 & 100 & 100 & 90 \\
@@ -219,8 +222,8 @@ Soul & 44 & 35 & 39 & 74 & 41 & 95 & 100 & 0 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
-\caption{KNN, 40, All}
+\begin{table}[H]\centering
+\caption{kNN, 40, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
 Blues & 22 & 9 & 4 & 2 & 0 & 1 & 7 & 12 \\
@@ -234,7 +237,7 @@ Soul & 5 & 9 & 0 & 2 & 3 & 21 & 21 & 15 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{SVM, 25, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -249,7 +252,7 @@ Soul & 59.6 & 62.0 & 76.8 & 88.4 & 79.2 & 72.0 & 99.2 & 0.0 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{SVM, 25, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -264,7 +267,7 @@ Soul & 9.2 & 11.2 & 4.4 & 3.2 & 4.8 & 17.2 & 3.6 & 31.2 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{SVM, 10, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -279,7 +282,7 @@ Soul & 46.50 & 65.00 & 80.75 & 78.50 & 86.00 & 81.75 & 100.00 & 0.00
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{SVM, 10, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -294,7 +297,7 @@ Soul & 15.25 & 14.25 & 8.00 & 8.00 & 5.50 & 20.25 & 5.75 & 25.25 \\
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{SVM, 40, Pairs}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
@@ -309,7 +312,7 @@ Soul & 77 & 58 & 75 & 84 & 84 & 68 & 100 & 0
 \end{tabu}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[H]\centering
 \caption{SVM, 40, All}
 \begin{tabu}{l|*{8}{l}}
  & Blues & Country & Folk & Gospel & Metal & R\&B & Rap & Soul \\ \hline
